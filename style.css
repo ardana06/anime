@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://img.freepik.com/free-photo/cartoon-style-summer-scene-with-cute-animal_23-2151068383.jpg?t=st=1745524010~exp=1745527610~hmac=15eaa3ac68d3ea38e6e32130922b24c093a81cd36424352ea750fac52c02f81d&w=740");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  
+  h1 a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+  
+  
+  form, .categories, .pagination {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    cursor: pointer;
+  }
+  
+  input, select, button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .anime-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .anime-card {
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.479);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .anime-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
