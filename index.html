@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="index.html">Anime Explorer</a></h1>
+  </header>
+
+  <main>
+    <!-- Поиск -->
+    <form class="search-form">
+      <input class="search-input" type="text" placeholder="Search anime by title..." />
+      <input class="search-button" type="submit" value="Search" />
+    </form>
+
+    <!-- Категории -->
+    <section class="categories">
+      <select class="genre-select">
+        <option value="">All Genres</option>
+      </select>
+    </section>
+
+    <!-- Рандом -->
+    <button class="random-button">Get Random Anime</button>
+
+    <!-- Список аниме -->
+    <section class="anime-list"></section>
+
+    <!-- Пагинация -->
+    <section class="pagination">
+      <button class="prev-page">Previous</button>
+      <span class="page-number">1</span>
+      <button class="next-page">Next</button>
+    </section>
+  </main>
+
+  <script src="anime.js"></script>
+</body>
+</html>
