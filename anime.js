@@ -22,17 +22,19 @@ form.addEventListener("submit", function (e) {
 });
 
 // Категории (жанры)
-fetch(`${baseUrl}/genres/anime`)
-  .then(res => res.json())
-  .then(data => {
-    data.data.forEach(genre => {
-      const option = document.createElement("option");
-      option.value = genre.mal_id;
-      option.textContent = genre.name;
-      genreSelect.appendChild(option);
-    });
+async function fetchGenres() {
+  const res = await fetch(`${baseUrl}/genres/anime`);
+  const data = await res.json();
+  data.data.forEach(genre => {
+    const option = document.createElement("option");
+    option.value = genre.mal_id;
+    option.textContent = genre.name;
+    genreSelect.appendChild(option);
   });
+}
+fetchGenres(); // вызываем сразу после определения
 
+// Обработка выбора жанра
 genreSelect.addEventListener("change", () => {
   currentGenre = genreSelect.value;
   currentPage = 1;
@@ -40,12 +42,10 @@ genreSelect.addEventListener("change", () => {
 });
 
 // Случайное аниме
-randomBtn.addEventListener("click", () => {
-  fetch(`${baseUrl}/random/anime`)
-    .then(res => res.json())
-    .then(data => {
-      displayAnime([data.data]);
-    });
+randomBtn.addEventListener("click", async () => {
+  const res = await fetch(`${baseUrl}/random/anime`);
+  const data = await res.json();
+  displayAnime([data.data]);
 });
 
 // Пагинация
@@ -61,8 +61,8 @@ nextBtn.addEventListener("click", () => {
   fetchAnime();
 });
 
-// Основная функция
-function fetchAnime() {
+// Основная функция (асинхронная!)
+async function fetchAnime() {
   let url = `${baseUrl}/anime?page=${currentPage}`;
 
   if (currentQuery) {
@@ -73,12 +73,10 @@ function fetchAnime() {
     url += `&genres=${currentGenre}`;
   }
 
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      displayAnime(data.data);
-      pageNumber.textContent = currentPage;
-    });
+  const res = await fetch(url);
+  const data = await res.json();
+  displayAnime(data.data);
+  pageNumber.textContent = currentPage;
 }
 
 // Вывод аниме
