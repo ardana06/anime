@@ -3,7 +3,6 @@ let currentPage = 1;
 let currentGenre = "";
 let currentQuery = "";
 
-// DOM-элементы
 const form = document.querySelector(".search-form");
 const searchInput = document.querySelector(".search-input");
 const animeList = document.querySelector(".anime-list");
@@ -21,7 +20,7 @@ form.addEventListener("submit", function (e) {
   fetchAnime();
 });
 
-// Категории (жанры)
+// Жанры
 async function fetchGenres() {
   const res = await fetch(`${baseUrl}/genres/anime`);
   const data = await res.json();
@@ -32,16 +31,15 @@ async function fetchGenres() {
     genreSelect.appendChild(option);
   });
 }
-fetchGenres(); // вызываем сразу после определения
+fetchGenres();
 
-// Обработка выбора жанра
 genreSelect.addEventListener("change", () => {
   currentGenre = genreSelect.value;
   currentPage = 1;
   fetchAnime();
 });
 
-// Случайное аниме
+// Рандом
 randomBtn.addEventListener("click", async () => {
   const res = await fetch(`${baseUrl}/random/anime`);
   const data = await res.json();
@@ -61,7 +59,7 @@ nextBtn.addEventListener("click", () => {
   fetchAnime();
 });
 
-// Основная функция (асинхронная!)
+// Основная загрузка
 async function fetchAnime() {
   let url = `${baseUrl}/anime?page=${currentPage}`;
 
@@ -79,7 +77,7 @@ async function fetchAnime() {
   pageNumber.textContent = currentPage;
 }
 
-// Вывод аниме
+// Вывод аниме и открытие модального окна
 function displayAnime(animeArray) {
   animeList.innerHTML = "";
 
@@ -93,8 +91,36 @@ function displayAnime(animeArray) {
       <p>Score: ${anime.score || "N/A"}</p>
     `;
     animeList.appendChild(card);
+
+    // Событие клика на карточку
+    card.addEventListener("click", () => {
+      const modal = document.querySelector(".modal-overlay");
+      const modalContent = document.querySelector(".modal-content");
+
+      modalContent.innerHTML = `
+        <span class="modal-close">&times;</span>
+        <h2>${anime.title}</h2>
+        <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
+        <p><strong>Episodes:</strong> ${anime.episodes || "?"}</p>
+        <p><strong>Type:</strong> ${anime.type}</p>
+        <p><strong>Score:</strong> ${anime.score || "N/A"}</p>
+        <p><strong>Synopsis:</strong> ${anime.synopsis || "No description available."}</p>
+      `;
+
+      modal.style.display = "flex";
+
+      modalContent.querySelector(".modal-close").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
   });
 }
 
-// Стартовая загрузка
+// Первоначальная загрузка
 fetchAnime();
